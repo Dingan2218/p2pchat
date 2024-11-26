@@ -3,26 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Omegle Clone with Usernames</title>
+    <title>Talk It Out</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
+        
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            background:  #181818;
+            color: #e4e4f6;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
-            background-color: #f3f3f3;
+            margin: 0;
         }
         .container {
-            width: 80%;
+            text-align: center;
+            width: 90%;
             max-width: 600px;
-            background: white;
-            border: 1px solid #ccc;
-            border-radius: 8px;
+            border: 2px solid #00cc00;
+            border-radius: 34px;
             padding: 20px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow:  5px 5px 10px #181818,
+            -5px -5px 10px #202020;
+            background: #242323;
         }
         .hidden {
             display: none;
@@ -30,10 +34,10 @@
         .messages {
             height: 300px;
             overflow-y: auto;
-            border: 1px solid #ddd;
+            border: 1px solid #ff00c3;
             margin-bottom: 10px;
             padding: 10px;
-            background: #fafafa;
+            background: #272222;
             border-radius: 4px;
         }
         .message {
@@ -42,25 +46,217 @@
         .input-container {
             display: flex;
         }
+
+          /* Style for the input field */
+          .input-container {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+            max-width: 800px;
+            gap: 10px;
+        }
+
         .input-container input {
-            flex: 1;
-            padding: 10px;
-            border: 1px solid #ccc;
-            border-radius: 4px 0 0 4px;
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #00ffcc; /* Cyberpunk-style green border */
+            border-radius: 25px; /* Round input field */
+            background: #1e1e1e;
+            color: #fff;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            outline: none;
         }
+
+        /* Input field on focus */
+        .input-container input:focus {
+            border: 2px solid #ff0044; /* Red border on focus */
+            background-color: #2b2b2b;
+            box-shadow: 0 0 8px rgba(255, 0, 68, 0.8); /* Glowing effect */
+        }
+
+        /* Input placeholder style */
+        .input-container input::placeholder {
+            color: #999;
+            font-style: italic;
+        }
+
         .input-container button {
-            padding: 10px;
+            width: 50px; /* Adjust width to fit the icon */
+            height: 50px; /* Adjust height for the icon */
+            padding: 0; /* No padding, since the icon will fit inside */
             border: none;
-            background: #007bff;
-            color: white;
+            border-radius: 50%; /* Circular button */
+            background: #00ff00; /* Elegant gold color */
+            color: #2c2c2c; /* White color for the icon */
+            font-size: 15px; /* Icon size */
+            display: flex;
+            justify-content: center;
+            align-items: center;
             cursor: pointer;
-            border-radius: 0 4px 4px 0;
+            position: relative;
+            transition: background 0.3s ease, box-shadow 0.3s ease;
         }
+        
+        .input-container button i {
+            transition: transform 0.3s ease;
+        }
+           
+        .input-container button:hover i {
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+        
+        .input-container button:active i {
+            transform: translateY(1px); /* Slight press effect */
+        }
+        
+        
+        @keyframes pulsate {
+            0% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(-50%, -50%) scale(1.2);
+                opacity: 0.8;
+            }
+            100% {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 0.5;
+            }
+        }
+        
+        
+        
+
+
+
+        /* Define the glowing animation */
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 9px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+            }
+            100% {
+                box-shadow: 0 0 9px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
+            }
+        }
+
+        #usernameInput {
+            background-color: #222;
+            border: 2px solid #00ff00;
+            border-radius: 30px;
+            color: #fff;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            width: 300px;
+            outline: none;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.3);
+        }
+
+        #usernameInput::placeholder {
+            color: #aaa;
+        }
+
+        /* Hover effect for input */
+        #usernameInput:hover {
+            background-color: #333;
+            border-color: #00cc00;
+            box-shadow: 0 6px 12px rgba(0, 255, 0, 0.5);
+        }
+
+        /* Focus effect for input */
+        #usernameInput:focus {
+            background-color: #444;
+            border-color: #00ff00;
+            box-shadow: 0 0 10px rgba(0, 255, 0, 1);
+        }
+        /* Container for the messages */
+.messages {
+    height: 300px;
+    overflow-y: auto;
+    border: 1px solid #ff00c3;
+    margin-bottom: 10px;
+    padding: 10px;
+    background: #272222;
+    border-radius: 4px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Common styles for message */
+.message {
+    max-width: 70%;
+    padding: 10px;
+    border-radius: 10px;
+    background-color: #333;
+    color: white;
+    font-size: 12px;
+    word-wrap: break-word;
+}
+
+/* Sender's message (left-aligned) */
+.message.sent {
+    align-self: flex-end; /* Align to the left */
+    background-color: #007bff; /* Blue for sent messages */
+}
+
+/* Receiver's message (right-aligned) */
+.message{
+    align-self: flex-start; /* Align to the right */
+    background-color: #28a745; /* Green for received messages */
+}
+
+
+        /* Styling for button */
+        #startChatButton {
+            background-color: #00ff00;
+            border: none;
+            border-radius: 30px;
+            color: #111;
+            padding: 10px 20px;
+            font-size: 15px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.4s ease, box-shadow 0.2s ease;
+            box-shadow: 0 4px 8px rgba(0, 255, 0, 0.436);
+        }
+
+        /* Hover effect for button */
+        #startChatButton:hover {
+            background-color: #00cc00;
+            transform: scale(1.1);  /* Enlarge the button slightly */
+            box-shadow: 0 8px 16px rgba(0, 255, 0, 0.5);
+        }
+
+        /* Add a glowing animation */
+        @keyframes glow {
+            0% {
+                box-shadow: 0 0 9px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
+            }
+            50% {
+                box-shadow: 0 0 20px #00ff00, 0 0 40px #00ff00, 0 0 60px #00ff00;
+            }
+            100% {
+                box-shadow: 0 0 9px #00ff00, 0 0 10px #00ff00, 0 0 15px #00ff00;
+            }
+        }
+
+        /* Apply glow animation on button click */
+        #startChatButton:active {
+            animation: glow 1.5s ease-in-out infinite;
+        }
+        
     </style>
 </head>
 <body>
     <div class="container" id="usernameContainer">
-        <h3>Enter Your Username</h3>
+        <h3>Talk It Out</h3>
         <input type="text" id="usernameInput" placeholder="Your username" />
         <button id="startChatButton">Start Chat</button>
     </div>
@@ -69,7 +265,9 @@
         <div class="messages" id="messages"></div>
         <div class="input-container">
             <input type="text" id="messageInput" placeholder="Type your message..." />
-            <button id="sendButton">Send</button>
+            <button id="sendBtn">
+                <i class="fas fa-paper-plane"></i> <!-- Send icon -->
+            </button>
         </div>
     </div>
 
