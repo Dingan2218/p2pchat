@@ -21,7 +21,10 @@ io.on('connection', (socket) => {
         username = name;
         users.push({ id: socket.id, username });
         console.log(`User ${socket.id} set their username as ${username}`);
-    });
+ 
+        // Notify other users that a new user has connected
+  io.emit('message', { username: 'System', message: `${username} has joined the chat.` });
+});
 
     // Handle incoming messages
     socket.on('message', (message) => {
@@ -33,6 +36,9 @@ io.on('connection', (socket) => {
     socket.on('disconnect', () => {
         console.log(`User ${username} disconnected.`);
         users = users.filter((user) => user.id !== socket.id);
+
+        // Notify other users that the user has disconnected
+        io.emit('message', { username: 'System', message: `${username} has left the chat.` });
     });
 });
 
@@ -41,4 +47,3 @@ server.listen(PORT, '0.0.0.0', () => {
     console.log(`Server is running on http://localhost:${PORT}`);
     console.log(`Accessible on your local network at http://192.168.1.45:${PORT}`);
 });
-
