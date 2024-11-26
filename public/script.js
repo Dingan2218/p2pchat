@@ -7,7 +7,7 @@ const startChatButton = document.getElementById('startChatButton');
 const chatContainer = document.getElementById('chatContainer');
 const messagesDiv = document.getElementById('messages');
 const messageInput = document.getElementById('messageInput');
-const sendButton = document.getElementById('sendButton');
+const sendButton = document.getElementById('sendBtn'); // Fix the ID here
 
 let username = null;
 
@@ -26,15 +26,17 @@ sendButton.addEventListener('click', () => {
     const message = messageInput.value.trim();
     if (message) {
         socket.emit('message', message); // Send message to server
-        addMessage(`You: ${message}`); // Show message locally
+      
         messageInput.value = ''; // Clear input field
     }
 });
 
+
 // Handle incoming messages
 socket.on('message', (data) => {
-    addMessage(`${data.username}: ${data.message}`); // Display received message
+    addMessage(`${data.username}: ${data.message}`, 'received'); // Display received message
 });
+
 
 // Helper function to add a message to the chat box
 function addMessage(text) {
